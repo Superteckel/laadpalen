@@ -9,13 +9,18 @@
 #import "LaadpalenDetailVC.h"
 #import "AppDelegate.h"
 #import "SQL.h"
+
+
 @interface LaadpalenDetailVC ()
 
 @end
 
 @implementation LaadpalenDetailVC
+
 @synthesize appDelegate;
 @synthesize laadpalenAttributesArray;
+
+
 - (NSInteger)updateLaadpalenAttributes {
     laadpalenAttributesArray = [[NSMutableArray alloc] init];
     
@@ -40,9 +45,14 @@
     return [laadpalenAttributesArray count];
 }
 
+
+#pragma datasource
+
+
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [laadpalenAttributesArray count];
 }
+
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -61,28 +71,22 @@
 }
 
 
+#pragma view
+
+
 - (void)viewDidLoad {
     NSLog(@"Selected laadpaal = %@", [appDelegate LaadpalenVCLaadpalen]);
 
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [self updateLaadpalenAttributes];
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

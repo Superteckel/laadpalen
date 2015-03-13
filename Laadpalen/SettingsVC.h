@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController
+@interface SettingsVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 
 @end

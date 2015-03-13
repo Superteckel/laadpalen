@@ -71,7 +71,8 @@
 
 #pragma datasource
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [laadpalenSql count];
+    //return [laadpalenSql count];
+    return 0;
 }
 
 
