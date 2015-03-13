@@ -11,6 +11,8 @@
 
 
 #define IMAGE_SNELLADER         @"Snellader"
+#define IMAGE_STATION_1         @"iconStation1"
+#define IMAGE_STATION_2         @"iconStation2"
 
 
 #endif

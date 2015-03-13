@@ -16,7 +16,7 @@
 @interface LaadpalenVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, retain) NSMutableArray *laadpalenSql;
 @property (strong, nonatomic) AppDelegate *appDelegate;
-@property (nonatomic, retain) NSDictionary *laadpaalObject;
+@property (nonatomic, retain) NSDictionary *laadpaal;
 @property (nonatomic, retain) LaadpalenDetailVC *laadpalenDetailVC;
 
 

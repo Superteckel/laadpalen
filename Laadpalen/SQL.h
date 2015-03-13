@@ -20,12 +20,13 @@
 
 #define SQL_TABLE_LAADPALEN                 @"laadpalen2"
 
-#define SQL_COLUMN_ADDRESS                     @"address"
-#define SQL_COLUMN_LONGITUDE                   @"longitude"
-#define SQL_COLUMN_LATITUDE                   @"latitude"
+#define SQL_COLUMN_ADDRESS                  @"address"
+#define SQL_COLUMN_LONGITUDE                @"longitude"
+#define SQL_COLUMN_LATITUDE                 @"latitude"
 
 #define SQL_COLUMN_COUNT                    @"count"
-#define SQL_COLUMN_TYPE                    @"type"
+#define SQL_COLUMN_TYPE                     @"type"
+#define SQL_COLUMN_TYPE_SNELLADER           @"typeSnellader"
 
 
 
@@ -34,7 +35,6 @@
                dbsName:(NSString *)aDbsName
           dbsExtension:(NSString *)aDbsExtension;
 
-+ (NSArray *)sqlSelectLaadpalen:(FMDatabase *)aDatabase
-             laadpalenPredicate:(NSDictionary *)aLaadpalenPredicate;
++ (NSArray *)sqlSelectLaadpalen:(FMDatabase *)aDatabase;
 
 @end

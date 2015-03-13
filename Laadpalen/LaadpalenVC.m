@@ -23,15 +23,9 @@
 @implementation LaadpalenVC
 @synthesize laadpalenSql;
 @synthesize appDelegate;
-@synthesize laadpaalObject;
+@synthesize laadpaal;
 @synthesize laadpalenDetailVC;
 
-
-- (void)initView {
-    NSLog(@"laadpalenVC.initView");
-    [self setTitle:LAADPALENVC_TITLE];
-    laadpalenDetailVC  = [[self storyboard] instantiateViewControllerWithIdentifier:@"LaadpalenDetailVC"];
-}
 
 
 #pragma model
@@ -46,39 +40,44 @@
     //  eerst sql-statement uitvoeren
     //  n-rows krijg je terug
     //  je gaat n-NSDictionaries toeveogen met de velden: text en detailText
-    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [[appDelegate laadpalen] count];
-    NSDictionary *laadpaalDic;
+    BOOL snellader;
+    NSDictionary *laadpaalDict;
     for (int i = 0; i < [[appDelegate laadpalen] count]; i++) {
-        laadpaalObject = [[appDelegate laadpalen] objectAtIndex:i];
-        NSString *cellText = [laadpaalObject objectForKey:SQL_COLUMN_ADDRESS];
-        NSString *cellDetailText = [laadpaalObject objectForKey:SQL_COLUMN_TYPE];
-        bool typeSnellader = [[laadpaalObject objectForKey:@"typeSnellader"] integerValue];
-        
-        laadpaalDic = [[NSDictionary alloc] initWithObjectsAndKeys:cellText, @"text", cellDetailText, @"detailText", typeSnellader, @"typeSnellader",nil];
-        [laadpalenSql addObject:laadpaalDic];
+        snellader = [[laadpaal objectForKey:SQL_COLUMN_TYPE_SNELLADER] integerValue];
+        laadpaal = [[appDelegate laadpalen] objectAtIndex:i];
+        laadpaalDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                        [laadpaal objectForKey:SQL_COLUMN_ADDRESS], @"text"
+                        , [laadpaal objectForKey:SQL_COLUMN_TYPE], @"detailText"
+                        , snellader ? IMAGE_STATION_2 : IMAGE_STATION_1, @"image"
+                        ,nil
+                        ];
+        [laadpalenSql addObject:laadpaalDict];
     }
     return [laadpalenSql count];
 }
 
 #pragma delegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     [appDelegate setLaadpalenVCLaadpalen:[[appDelegate laadpalen] objectAtIndex:[indexPath row]]];
     [[self navigationController] pushViewController:laadpalenDetailVC animated:YES];
 }
 
 
 #pragma datasource
+
+
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return [laadpalenSql count];
-    return 0;
+    return [laadpalenSql count];
 }
 
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
+
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return [NSString stringWithFormat:@"%@ %d"
@@ -89,26 +88,32 @@
 
 
 
-
-
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"bokkelul"];
-    NSDictionary *laadpaal = [laadpalenSql objectAtIndex:[indexPath row]];
-    UIImage *image = [UIImage imageNamed:IMAGE_SNELLADER];
-
+    NSDictionary *laadpaalDict = [laadpalenSql objectAtIndex:[indexPath row]];
     
-    [[cell textLabel] setText:[laadpaal objectForKey:@"text"]];
-    [[cell detailTextLabel] setText:[laadpaal objectForKey:@"detailText"]];
+    [[cell textLabel] setText:[laadpaalDict objectForKey:@"text"]];
+    [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:11]];
     
-    [[cell textLabel] setFont:[UIFont boldSystemFontOfSize:10]];
-    [[cell detailTextLabel] setFont:[UIFont boldSystemFontOfSize:7]];
+    [[cell detailTextLabel] setText:[laadpaalDict objectForKey:@"detailText"]];
+    [[cell detailTextLabel] setFont:[UIFont systemFontOfSize:8]];
+    [[cell detailTextLabel] setTextColor:[UIColor grayColor]];
     
     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-    if ([[laadpaal objectForKey:@"typeSnellader"] integerValue]) {
-        [[cell imageView] setImage:image];        
-    }
+    [[cell imageView] setImage:[UIImage imageNamed:[laadpaalDict objectForKey:@"image"]]];
     return cell;
 }
+
+
+#pragma view
+
+
+- (void)initView {
+    appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [self setTitle:LAADPALENVC_TITLE];
+    laadpalenDetailVC  = [[self storyboard] instantiateViewControllerWithIdentifier:@"LaadpalenDetailVC"];
+}
+
 
 - (void)viewDidLoad {
     [self initView];

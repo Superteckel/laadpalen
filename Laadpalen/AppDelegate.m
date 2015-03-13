@@ -17,10 +17,14 @@
 
 @implementation AppDelegate
 
+
 @synthesize database;
-@synthesize laadpalen, laadpaal, laadpalenPredicate;
+@synthesize laadpalen;
 @synthesize LaadpalenVCLaadpalen;
+
+
 #pragma page SQL initialisatie
+
 
 - (void)initSQL {
     NSString *pathName = [SQL pathToDB:VERSION
@@ -35,21 +39,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    laadpalenPredicate = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        @(2), SQL_COLUMN_COUNT
-                                        , nil
-                                        ];
     [self initSQL];
-    laadpalen = [SQL sqlSelectLaadpalen:database laadpalenPredicate:laadpalenPredicate];
-    NSLog(@"laadpalen = %zd", [laadpalen count]);
-    for (NSInteger i = 0; i < [laadpalen count]; i++) {
-        NSLog(@"-------------------------------");
-        laadpaal = [laadpalen objectAtIndex:i];
-        NSLog(@"laadpaal = %@", laadpaal);
-        NSLog(@"longitude = %f", [[laadpaal objectForKey:SQL_COLUMN_LONGITUDE] floatValue]);
-
-}
+    laadpalen = [SQL sqlSelectLaadpalen:database];
     return YES;
 }
 

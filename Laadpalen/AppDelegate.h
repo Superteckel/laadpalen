@@ -16,8 +16,6 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) FMDatabase *database;
 @property (nonatomic, retain) NSArray *laadpalen;
-@property (nonatomic, retain) NSDictionary *laadpaal;
-@property (nonatomic, retain) NSDictionary *laadpalenPredicate;
 @property (nonatomic, retain) NSDictionary *LaadpalenVCLaadpalen;
 @end
 

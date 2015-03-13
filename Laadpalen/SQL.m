@@ -44,8 +44,7 @@
 }
 
 
-+ (NSArray *)sqlSelectLaadpalen:(FMDatabase *)aDatabase
-             laadpalenPredicate:(NSDictionary *)aLaadpalenPredicate {
++ (NSArray *)sqlSelectLaadpalen:(FMDatabase *)aDatabase {
     NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@"
                      , SQL_TABLE_LAADPALEN
                      ];
