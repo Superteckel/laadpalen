@@ -29,7 +29,6 @@
 
 - (void)initView {
     [self setTitle:LAADPALENVC_TITLE];
-    
     laadpalenDetailVC  = [[self storyboard] instantiateViewControllerWithIdentifier:@"LaadpalenDetailVC"];
 }
 
