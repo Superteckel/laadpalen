@@ -32,8 +32,7 @@
 - (void)initLaadpalen {
     laadpalenSql = [[NSMutableArray alloc] init];
 }
-
-
+#warning test
 - (NSInteger)updateLaadpalen {
     [laadpalenSql removeAllObjects];
     //  hier gaan we het datamodel vullen
