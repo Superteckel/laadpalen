@@ -15,6 +15,7 @@
 #import "Localization.h"
 #import "Images.h"
 
+/* ik ben diederick de buck */
 
 @interface LaadpalenVC ()
 @end
